@@ -48,6 +48,7 @@ export default function Timer({
     setTimerStartedAt(Date.now());
     setTimerTotalMillis(durationMillis);
     setTimerTicking(true);
+    setTimerElapsed(0);
   }, []);
 
   useEffect(() => {
