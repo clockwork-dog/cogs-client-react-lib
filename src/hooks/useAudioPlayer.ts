@@ -177,7 +177,6 @@ export default function useAudioPlayer(
             clip.player.once(
               'play',
               () => {
-                // clip.player.once('fade', () => clip.player.volume(volume, soundId), soundId);
                 clip.player.fade(0, volume, fade * 1000, soundId);
               },
               soundId
