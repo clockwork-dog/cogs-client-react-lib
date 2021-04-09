@@ -312,7 +312,6 @@ export default function useAudioPlayer(
     (clipPath: string, previousClip: InternalClipPlayer, newConfig: InternalClipPlayer['config']): InternalClipPlayer => {
       const clip = { ...previousClip, config: newConfig };
       if (previousClip.config.preload !== newConfig.preload) {
-        clip.player.stop();
         clip.player.unload();
         clip.player = createPlayer(clipPath, newConfig);
       }
@@ -331,7 +330,6 @@ export default function useAudioPlayer(
         );
         removedClips.forEach((file) => {
           const player = previousClipPlayers[file].player;
-          player.stop();
           player.unload();
           delete clipPlayers[file];
         });
