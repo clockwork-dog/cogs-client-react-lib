@@ -220,7 +220,10 @@ export default function useAudioPlayer(
           }
         });
       } else {
-        player.stop();
+        Object.keys(activeClips).forEach((soundIdStr) => {
+          const soundId = parseInt(soundIdStr);
+          player.stop(soundId);
+        });
       }
     },
     [audioClipPlayers, updateActiveAudioClip]
@@ -261,7 +264,15 @@ export default function useAudioPlayer(
     [updateAudioClipPlayer, updateActiveAudioClip]
   );
 
-  const stopAllAudioClips = useCallback(() => Object.values(audioClipPlayers).forEach((clipPlayer) => clipPlayer.player.stop()), [audioClipPlayers]);
+  const stopAllAudioClips = useCallback(
+    () =>
+      Object.values(audioClipPlayers).forEach((clipPlayer) => {
+        if (Object.keys(clipPlayer.activeClips).length) {
+          clipPlayer.player.stop();
+        }
+      }),
+    [audioClipPlayers]
+  );
 
   const setAudioClipVolume = useCallback(
     (path: string, { volume, fade }: { volume: number; fade?: number }) => {
