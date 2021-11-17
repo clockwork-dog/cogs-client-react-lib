@@ -78,11 +78,11 @@
 				</a>
 				<p>Import the library</p>
 				<pre><code class="language-ts"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">CogsConnection</span><span style="color: #000000">, </span><span style="color: #001080">AudioPlayer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@clockworkdog/cogs-client&#039;</span><span style="color: #000000">;</span>
-<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Background</span><span style="color: #000000">, </span><span style="color: #001080">Video</span><span style="color: #000000">, </span><span style="color: #001080">Timer</span><span style="color: #000000">, </span><span style="color: #001080">Hint</span><span style="color: #000000">, </span><span style="color: #001080">useIsConnected</span><span style="color: #000000">, </span><span style="color: #001080">useIsAudioPlaying</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@clockworkdog/cogs-client-react&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Video</span><span style="color: #000000">, </span><span style="color: #001080">Timer</span><span style="color: #000000">, </span><span style="color: #001080">Hint</span><span style="color: #000000">, </span><span style="color: #001080">useIsConnected</span><span style="color: #000000">, </span><span style="color: #001080">useIsAudioPlaying</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@clockworkdog/cogs-client-react&#039;</span><span style="color: #000000">;</span>
 </code></pre>
 				<p>or</p>
 				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">CogsConnection</span><span style="color: #000000">, </span><span style="color: #0070C1">AudioPlayer</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@clockworkdog/cogs-client&#039;</span><span style="color: #000000">);</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Background</span><span style="color: #000000">, </span><span style="color: #0070C1">Video</span><span style="color: #000000">, </span><span style="color: #0070C1">Hint</span><span style="color: #000000">, </span><span style="color: #0070C1">Timer</span><span style="color: #000000">, </span><span style="color: #0070C1">useIsConnected</span><span style="color: #000000">, </span><span style="color: #0070C1">useIsAudioPlaying</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@clockworkdog/cogs-client-react&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Video</span><span style="color: #000000">, </span><span style="color: #0070C1">Hint</span><span style="color: #000000">, </span><span style="color: #0070C1">Timer</span><span style="color: #000000">, </span><span style="color: #0070C1">useIsConnected</span><span style="color: #000000">, </span><span style="color: #0070C1">useIsAudioPlaying</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@clockworkdog/cogs-client-react&#039;</span><span style="color: #000000">);</span>
 </code></pre>
 				<p>then</p>
 				<pre><code class="language-tsx"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cogsConnection</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">CogsConnection</span><span style="color: #000000">();</span>
@@ -95,7 +95,6 @@
 
 <span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
 <span style="color: #000000">    </span><span style="color: #800000">&lt;div&gt;</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Backgound</span><span style="color: #000000"> </span><span style="color: #FF0000">connection</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #001080">cogsConnection</span><span style="color: #0000FF">}</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
 <span style="color: #000000">      </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Connected: </span><span style="color: #0000FF">{</span><span style="color: #001080">isConnected</span><span style="color: #0000FF">}</span><span style="color: #800000">&lt;/div&gt;</span>
 <span style="color: #000000">      </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Audio playing: </span><span style="color: #0000FF">{</span><span style="color: #001080">isAudioPlaying</span><span style="color: #0000FF">}</span><span style="color: #800000">&lt;/div&gt;</span>
 <span style="color: #000000">      </span><span style="color: #800000">&lt;div</span><span style="color: #000000"> </span><span style="color: #FF0000">style</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">{ </span><span style="color: #001080">fontSize:</span><span style="color: #000000FF"> </span><span style="color: #098658">100</span><span style="color: #000000FF"> }</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span>
@@ -138,9 +137,6 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-function">
-						<a href="modules.html#Background" class="tsd-kind-icon">Background</a>
-					</li>
-					<li class=" tsd-kind-function">
 						<a href="modules.html#CogsConnectionProvider" class="tsd-kind-icon">Cogs<wbr>Connection<wbr>Provider</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -158,9 +154,6 @@
 					<li class=" tsd-kind-function">
 						<a href="modules.html#useAudioClips" class="tsd-kind-icon">use<wbr>Audio<wbr>Clips</a>
 					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#useBackground" class="tsd-kind-icon">use<wbr>Background</a>
-					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="modules.html#useCogsConfig" class="tsd-kind-icon">use<wbr>Cogs<wbr>Config</a>
 					</li>
@@ -176,7 +169,7 @@
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="modules.html#useCogsInputPortValues" class="tsd-kind-icon">use<wbr>Cogs<wbr>Input<wbr>Port<wbr>Values</a>
 					</li>
-					<li class=" tsd-kind-function">
+					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="modules.html#useCogsMessage" class="tsd-kind-icon">use<wbr>Cogs<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-function">
