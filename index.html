@@ -116,6 +116,17 @@
 				</a>
 				<p>When developing locally you should connect to COGS in &quot;simulator&quot; mode by appending <code>?simulator=true&amp;t=media_master&amp;name=MEDIA_MASTER_NAME</code> to the URL. Replace <code>MEDIA_MASTER_NAME</code> with the name of the Media Master you set in COGS.</p>
 				<p>For example, with your custom content hosted on port 3000, <a href="http://localhost:3000?simulator=true&amp;t=media_master&amp;name=Timer+screen">http://localhost:3000?simulator=true&amp;t=media_master&amp;name=Timer+screen</a> will connect as the simulator for <code>Timer screen</code>.</p>
+				<a href="#chrome-permissions" id="chrome-permissions" style="color: inherit; text-decoration: none;">
+					<h4>Chrome permissions</h4>
+				</a>
+				<p>Chrome&#39;s autoplay security settings mean that you will need to interact with the page before audio or video will play. You can disable this warning when developing by pressing <code>ℹ️</code> in Chrome&#39;s URL bar, opening <code>Site settings</code>, and setting <code>Sound</code> to <code>Allow</code>.</p>
+				<a href="#using-create-react-app" id="using-create-react-app" style="color: inherit; text-decoration: none;">
+					<h2>Using <code>create-react-app</code></h2>
+				</a>
+				<p>We suggest you use <a href="https://www.npmjs.com/package/@clockworkdog/cra-template-cogs-client">our <code>create-react-app</code> template</a>.</p>
+				<p>Or, if you&#39;re using <code>create-react-app</code> for your project, you&#39;ll need to configure the build to work with a relative path, as when accessed by a Media Master your project will not be served from the root path. This can be achieved by adding the following to your <code>package.json</code>:</p>
+				<pre><code><span style="color: #A31515">&quot;homepage&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;.&quot;</span><span style="color: #000000">,</span>
+</code></pre>
 				<a href="#release-process" id="release-process" style="color: inherit; text-decoration: none;">
 					<h2>Release process</h2>
 				</a>
