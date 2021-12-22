@@ -32,13 +32,13 @@ export default function Video({
   const [pendingVideoClip, setPendingVideoClip] = useState<VideoClip | null>(null);
   const [topLayerIndex, setTopLayerIndex] = useState(0);
 
-  const refVideo1 = useRef<HTMLVideoElement>(null);
-  const refVideo1Playing = useRef(false);
-  const refVideo2 = useRef<HTMLVideoElement>(null);
-  const refVideo2Playing = useRef(false);
+  const video1Ref = useRef<HTMLVideoElement>(null);
+  const video1PlayingRef = useRef(false);
+  const video2Ref = useRef<HTMLVideoElement>(null);
+  const video2PlayingRef = useRef(false);
 
-  const refVideos = useMemo(() => [refVideo1, refVideo2], []);
-  const refVideosPlaying = useMemo(() => [refVideo1Playing, refVideo2Playing], []);
+  const videoRefs = useMemo(() => [video1Ref, video2Ref], []);
+  const videoPlayingRefs = useMemo(() => [video1PlayingRef, video2PlayingRef], []);
 
   // Handler for incoming COGS messages
   const cogsMessageHandler = useCallback(
@@ -100,53 +100,53 @@ export default function Video({
 
   // Manage playing/pausing of the top video
   useEffect(() => {
-    const topVideo = refVideos[topLayerIndex].current;
-    const topVideoPlaying = refVideosPlaying[topLayerIndex].current;
+    const topVideo = videoRefs[topLayerIndex].current;
+    const topVideoPlayingRef = videoPlayingRefs[topLayerIndex];
 
     if (topVideo) {
       switch (videoClip?.state) {
         case VideoClipState.Playing:
-          if (!topVideoPlaying) {
+          if (!topVideoPlayingRef.current) {
             console.log('Playing top video');
             topVideo.play();
           }
           break;
         case VideoClipState.Paused:
-          if (topVideoPlaying) {
+          if (topVideoPlayingRef.current) {
             console.log('Pausing top video');
             topVideo.pause();
           }
           break;
       }
     }
-  }, [videoClip, topLayerIndex, refVideos, refVideosPlaying]);
+  }, [videoClip, topLayerIndex, videoRefs, videoPlayingRefs]);
 
   // Manage playing/pausing of the bottom video
   useEffect(() => {
-    const bottomVideo = refVideos[1 - topLayerIndex].current;
-    const bottomVideoPlaying = refVideosPlaying[1 - topLayerIndex].current;
+    const bottomVideo = videoRefs[1 - topLayerIndex].current;
+    const bottomVideoPlayingRef = videoPlayingRefs[1 - topLayerIndex];
 
     if (bottomVideo && pendingVideoClip) {
       switch (pendingVideoClip?.state) {
         case VideoClipState.Playing:
-          if (!bottomVideoPlaying) {
+          if (!bottomVideoPlayingRef.current) {
             console.log('Playing bottom video');
             bottomVideo.play();
           }
           break;
         case VideoClipState.Paused:
-          if (bottomVideoPlaying) {
+          if (bottomVideoPlayingRef.current) {
             console.log('Pausing bottom video');
             bottomVideo.pause();
           }
           break;
       }
     }
-  }, [pendingVideoClip, topLayerIndex, refVideos, refVideosPlaying]);
+  }, [pendingVideoClip, topLayerIndex, videoRefs, videoPlayingRefs]);
 
   // Manage playing clip volume
   useEffect(() => {
-    [refVideo1, refVideo2].forEach((ref) => {
+    [video1Ref, video2Ref].forEach((ref) => {
       if (ref.current) {
         ref.current.volume = videoClip?.volume ?? 1 * globalVolume;
       }
@@ -155,44 +155,39 @@ export default function Video({
 
   // Manage 'loop' changes whilst playing a video (e.g. by calling play again with loop set to true)
   useEffect(() => {
-    const topVideo = refVideos[topLayerIndex].current;
+    const topVideo = videoRefs[topLayerIndex].current;
     if (topVideo) {
       topVideo.loop = videoClip?.loop ?? false;
       console.log('Updating loop for top video', topVideo.loop);
     }
-  }, [videoClip, topLayerIndex]);
+  }, [videoClip, topLayerIndex, videoRefs]);
 
   // Manage the playing state of the top video when videoClip is removed
   useEffect(() => {
-    const topVideoPlaying = refVideosPlaying[topLayerIndex];
+    const topVideoPlaying = videoPlayingRefs[topLayerIndex];
     if (videoClip === null) {
       topVideoPlaying.current = false;
     }
-  }, [videoClip, topLayerIndex, refVideosPlaying]);
+  }, [videoClip, topLayerIndex, videoPlayingRefs]);
 
   // Manage the playing state of the bottom video when pendingVideoClip is removed
   useEffect(() => {
-    // if (pendingVideoClip === null && bottomVideo) {
-    //   console.log('Pausing bottom video');
-    //   bottomVideo.current?.pause();
-    // }
-
-    const bottomVideoPlaying = refVideosPlaying[1 - topLayerIndex];
+    const bottomVideoPlaying = videoPlayingRefs[1 - topLayerIndex];
 
     if (pendingVideoClip === null) {
       bottomVideoPlaying.current = false;
     }
-  }, [pendingVideoClip, refVideosPlaying, topLayerIndex]);
+  }, [pendingVideoClip, videoPlayingRefs, topLayerIndex]);
 
-  const notifyVideoPlaying = useCallback(
+  const onVideoPlaying = useCallback(
     (index: number) => {
       console.log('notifyVideoPlaying', index);
 
       // Update playing state
-      refVideosPlaying[index].current = true;
+      videoPlayingRefs[index].current = true;
 
       // Pause video if it shouldn't be playing
-      const refVideo = refVideos[index].current;
+      const refVideo = videoRefs[index].current;
 
       if (refVideo) {
         if (
@@ -203,22 +198,7 @@ export default function Video({
           refVideo.pause();
         }
       }
-    },
-    [refVideosPlaying, refVideos, topLayerIndex, videoClip, pendingVideoClip?.state]
-  );
 
-  const notifyVideoStopped = useCallback(() => {
-    console.log('notifyVideoStopped');
-    if (!videoClip?.loop) {
-      setVideoClip(null);
-      onStopped?.();
-    }
-  }, [videoClip, onStopped]);
-
-  const notifyVideoLoadedData = useCallback(
-    (index: number) => {
-      console.log('notifyVideoLoadedData', index);
-      // If pending, then time to swap
       if (index !== topLayerIndex) {
         console.log('Swapping pending and actual');
         setVideoClip(pendingVideoClip);
@@ -226,8 +206,25 @@ export default function Video({
         setTopLayerIndex((topLayerIndex) => 1 - topLayerIndex);
       }
     },
-    [topLayerIndex, pendingVideoClip]
+    [videoPlayingRefs, videoRefs, topLayerIndex, videoClip, pendingVideoClip]
   );
+
+  const onVideoPause = useCallback(
+    (index: number) => {
+      videoPlayingRefs[index].current = false;
+    },
+    [videoPlayingRefs]
+  );
+
+  const onVideoEnded = useCallback(() => {
+    console.log('notifyVideoStopped');
+    if (!videoClip?.loop) {
+      if (pendingVideoClip === null) {
+        setVideoClip(null);
+      }
+      onStopped?.();
+    }
+  }, [videoClip, onStopped, pendingVideoClip]);
 
   if (!videoClip) {
     return null;
@@ -248,23 +245,23 @@ export default function Video({
       {(topLayerIndex === 0 || pendingVideoClip !== null) && (
         <video
           className={className}
-          ref={refVideo1}
-          style={{ ...videoStyle, opacity: topLayerIndex === 0 ? 1 : 0 }}
+          ref={video1Ref}
+          style={{ ...videoStyle, zIndex: topLayerIndex === 0 ? 100 : -100 }}
           src={topLayerIndex === 0 ? topVideoSource : bottomVideoSource}
-          onEnded={() => notifyVideoStopped()}
-          onPlaying={() => notifyVideoPlaying(0)}
-          onLoadedData={() => notifyVideoLoadedData(0)}
+          onEnded={() => onVideoEnded()}
+          onPlaying={() => onVideoPlaying(0)}
+          onPause={() => onVideoPause(0)}
         />
       )}
       {(topLayerIndex === 1 || pendingVideoClip !== null) && (
         <video
           className={className}
-          ref={refVideo2}
-          style={{ ...videoStyle, opacity: topLayerIndex === 1 ? 1 : 0 }}
+          ref={video2Ref}
+          style={{ ...videoStyle, zIndex: topLayerIndex === 1 ? 100 : -100 }}
           src={topLayerIndex === 1 ? topVideoSource : bottomVideoSource}
-          onEnded={() => notifyVideoStopped()}
-          onPlaying={() => notifyVideoPlaying(1)}
-          onLoadedData={() => notifyVideoLoadedData(1)}
+          onEnded={() => onVideoEnded()}
+          onPlaying={() => onVideoPlaying(1)}
+          onPause={() => onVideoPause(1)}
         />
       )}
     </>
