@@ -28,17 +28,15 @@ export default function Video({
   getCachedAsset?: (assetUrl: string) => string | undefined;
 }): JSX.Element | null {
   const [globalVolume, setGlobalVolume] = useState(1);
-  const [videoClip, setVideoClip] = useState<VideoClip | null>(null);
+  const [visibleVideoClip, setVisibleVideoClip] = useState<VideoClip | null>(null);
   const [pendingVideoClip, setPendingVideoClip] = useState<VideoClip | null>(null);
-  const [topLayerIndex, setTopLayerIndex] = useState(0);
+  const [visibleLayerIndex, setVisibleLayerIndex] = useState(0);
+  const pendingLayerIndex = 1 - visibleLayerIndex;
 
-  const video1Ref = useRef<HTMLVideoElement>(null);
-  const video1PlayingRef = useRef(false);
-  const video2Ref = useRef<HTMLVideoElement>(null);
-  const video2PlayingRef = useRef(false);
-
-  const videoRefs = useMemo(() => [video1Ref, video2Ref], []);
-  const videoPlayingRefs = useMemo(() => [video1PlayingRef, video2PlayingRef], []);
+  const videoRefs = useRef<[{ playing: boolean; element: null | HTMLVideoElement }, { playing: boolean; element: null | HTMLVideoElement }]>([
+    { playing: false, element: null },
+    { playing: false, element: null },
+  ]);
 
   // Handler for incoming COGS messages
   const cogsMessageHandler = useCallback(
@@ -56,210 +54,237 @@ export default function Video({
             state: VideoClipState.Playing,
           };
 
-          console.log('Incoming play request', { videoClip, pendingVideoClip });
+          console.log('Incoming play request', { visibleVideoClip, pendingVideoClip });
 
           // If there's already a video and the src is different, then set to pending instead
-          if (videoClip !== null && videoClip.src !== clip.src) {
+          if (visibleVideoClip !== null && visibleVideoClip.src !== clip.src) {
             console.log('Setting pending video clip', clip);
             setPendingVideoClip(clip);
           } else {
-            if (videoClip === null || !isEqual(videoClip, clip)) {
+            if (visibleVideoClip === null || !isEqual(visibleVideoClip, clip)) {
               console.log('Setting video clip', clip);
-              setVideoClip(clip);
+              setVisibleVideoClip(clip);
             }
           }
 
           break;
         }
         case 'video_pause':
-          if (pendingVideoClip) {
-            setPendingVideoClip((video) => (video ? { ...video, state: VideoClipState.Paused } : null));
-          } else {
-            setVideoClip((video) => (video ? { ...video, state: VideoClipState.Paused } : null));
-          }
+          (pendingVideoClip ? setPendingVideoClip : setVisibleVideoClip)((video) => {
+            return video ? { ...video, state: VideoClipState.Paused } : null;
+          });
           break;
         case 'video_stop':
           console.log('Incoming stop request');
-          setVideoClip(null);
+          setVisibleVideoClip(null);
           setPendingVideoClip(null);
           break;
         case 'video_set_volume':
-          console.log('Incoming set volume request', { videoClip, pendingVideoClip });
-          if (pendingVideoClip) {
-            setPendingVideoClip((video) => (video ? { ...video, volume: message.volume } : null));
-          } else {
-            setVideoClip((video) => (video ? { ...video, volume: message.volume } : null));
-          }
+          console.log('Incoming set volume request', { videoClip: visibleVideoClip, pendingVideoClip });
+          (pendingVideoClip ? setPendingVideoClip : setVisibleVideoClip)((video) => {
+            return video ? { ...video, volume: message.volume } : null;
+          });
           break;
       }
     },
-    [pendingVideoClip, videoClip]
+    [pendingVideoClip, visibleVideoClip]
   );
 
   useCogsMessage(connection, cogsMessageHandler);
 
-  // Manage playing/pausing of the top video
+  // Manage playing/pausing of the visible video
   useEffect(() => {
-    const topVideo = videoRefs[topLayerIndex].current;
-    const topVideoPlayingRef = videoPlayingRefs[topLayerIndex];
+    const visibleVideo = videoRefs.current[visibleLayerIndex].element;
+    const visibleVideoPlaying = videoRefs.current[visibleLayerIndex].playing;
 
-    if (topVideo) {
-      switch (videoClip?.state) {
+    if (visibleVideo) {
+      switch (visibleVideoClip?.state) {
         case VideoClipState.Playing:
-          if (!topVideoPlayingRef.current) {
-            console.log('Playing top video');
-            topVideo.play();
+          if (!visibleVideoPlaying) {
+            console.log('Playing visible video');
+            visibleVideo.play();
           }
           break;
         case VideoClipState.Paused:
-          if (topVideoPlayingRef.current) {
-            console.log('Pausing top video');
-            topVideo.pause();
+          if (visibleVideoPlaying) {
+            console.log('Pausing visible video');
+            visibleVideo.pause();
           }
           break;
       }
     }
-  }, [videoClip, topLayerIndex, videoRefs, videoPlayingRefs]);
+  }, [visibleVideoClip, visibleLayerIndex]);
 
-  // Manage playing/pausing of the bottom video
+  // Manage playing/pausing of the pending video
   useEffect(() => {
-    const bottomVideo = videoRefs[1 - topLayerIndex].current;
-    const bottomVideoPlayingRef = videoPlayingRefs[1 - topLayerIndex];
+    const pendingVideo = videoRefs.current[pendingLayerIndex].element;
+    const pendingVideoPlaying = videoRefs.current[pendingLayerIndex].playing;
 
-    if (bottomVideo && pendingVideoClip) {
+    if (pendingVideo && pendingVideoClip) {
       switch (pendingVideoClip?.state) {
         case VideoClipState.Playing:
-          if (!bottomVideoPlayingRef.current) {
-            console.log('Playing bottom video');
-            bottomVideo.play();
+          if (!pendingVideoPlaying) {
+            console.log('Playing pending video');
+            pendingVideo.play();
           }
           break;
         case VideoClipState.Paused:
-          if (bottomVideoPlayingRef.current) {
-            console.log('Pausing bottom video');
-            bottomVideo.pause();
+          if (pendingVideoPlaying) {
+            console.log('Pausing pending video');
+            pendingVideo.pause();
           }
           break;
       }
     }
-  }, [pendingVideoClip, topLayerIndex, videoRefs, videoPlayingRefs]);
+  }, [pendingLayerIndex, pendingVideoClip, visibleLayerIndex]);
 
-  // Manage playing clip volume
+  // Manage playing clip volume for visible video
   useEffect(() => {
-    [video1Ref, video2Ref].forEach((ref) => {
-      if (ref.current) {
-        ref.current.volume = videoClip?.volume ?? 1 * globalVolume;
-      }
-    });
-  }, [videoClip, globalVolume]);
+    const visibleVideo = videoRefs.current[visibleLayerIndex].element;
 
-  // Manage 'loop' changes whilst playing a video (e.g. by calling play again with loop set to true)
-  useEffect(() => {
-    const topVideo = videoRefs[topLayerIndex].current;
-    if (topVideo) {
-      topVideo.loop = videoClip?.loop ?? false;
-      console.log('Updating loop for top video', topVideo.loop);
+    if (visibleVideo) {
+      visibleVideo.volume = (visibleVideoClip?.volume ?? 1) * globalVolume;
     }
-  }, [videoClip, topLayerIndex, videoRefs]);
+  }, [visibleVideoClip?.volume, globalVolume, visibleLayerIndex]);
 
-  // Manage the playing state of the top video when videoClip is removed
+  // Manage playing clip volume for pending video
   useEffect(() => {
-    const topVideoPlaying = videoPlayingRefs[topLayerIndex];
-    if (videoClip === null) {
-      topVideoPlaying.current = false;
+    const pendingVideo = videoRefs.current[pendingLayerIndex].element;
+
+    if (pendingVideo) {
+      pendingVideo.volume = (pendingVideoClip?.volume ?? 1) * globalVolume;
     }
-  }, [videoClip, topLayerIndex, videoPlayingRefs]);
+  }, [pendingVideoClip?.volume, globalVolume, pendingLayerIndex]);
+
+  // Manage 'loop' changes for visible video (e.g. by calling play again with loop set to true)
+  useEffect(() => {
+    const visibleVideo = videoRefs.current[visibleLayerIndex].element;
+
+    if (visibleVideo) {
+      visibleVideo.loop = visibleVideoClip?.loop ?? false;
+      console.log('Updating loop for visible video', visibleVideo.loop);
+    }
+  }, [visibleVideoClip?.loop, visibleLayerIndex, videoRefs]);
+
+  // Manage 'loop' changes for pending video (e.g. by calling play again with loop set to true)
+  useEffect(() => {
+    const pendingVideo = videoRefs.current[pendingLayerIndex].element;
+
+    if (pendingVideo) {
+      pendingVideo.loop = pendingVideoClip?.loop ?? false;
+      console.log('Updating loop for visible video', pendingVideo.loop);
+    }
+  }, [pendingVideoClip?.loop, pendingLayerIndex]);
+
+  // Manage the playing state of the visible video when videoClip is removed
+  useEffect(() => {
+    const visibleVideoPlaying = videoRefs.current[visibleLayerIndex];
+    if (visibleVideoClip === null) {
+      visibleVideoPlaying.playing = false;
+    }
+  }, [visibleVideoClip, visibleLayerIndex]);
 
   // Manage the playing state of the bottom video when pendingVideoClip is removed
   useEffect(() => {
-    const bottomVideoPlaying = videoPlayingRefs[1 - topLayerIndex];
+    const pendingVideoPlaying = videoRefs.current[pendingLayerIndex];
 
     if (pendingVideoClip === null) {
-      bottomVideoPlaying.current = false;
+      pendingVideoPlaying.playing = false;
     }
-  }, [pendingVideoClip, videoPlayingRefs, topLayerIndex]);
+  }, [pendingVideoClip, pendingLayerIndex]);
 
   const onVideoPlaying = useCallback(
     (index: number) => {
       console.log('notifyVideoPlaying', index);
 
       // Update playing state
-      videoPlayingRefs[index].current = true;
+      videoRefs.current[index].playing = true;
 
       // Pause video if it shouldn't be playing
-      const refVideo = videoRefs[index].current;
+      const videoElement = videoRefs.current[index].element;
 
-      if (refVideo) {
+      if (videoElement) {
         if (
-          (topLayerIndex === index && videoClip?.state === VideoClipState.Paused) ||
-          (topLayerIndex !== index && pendingVideoClip?.state === VideoClipState.Paused)
+          (visibleLayerIndex === index && visibleVideoClip?.state === VideoClipState.Paused) ||
+          (visibleLayerIndex !== index && pendingVideoClip?.state === VideoClipState.Paused)
         ) {
           console.log('Pausing as started playing but should be paused');
-          refVideo.pause();
+          videoElement.pause();
         }
       }
 
-      if (index !== topLayerIndex) {
+      // Swap the pending into visible
+      if (index !== visibleLayerIndex) {
         console.log('Swapping pending and actual');
-        setVideoClip(pendingVideoClip);
+        setVisibleVideoClip(pendingVideoClip);
         setPendingVideoClip(null);
-        setTopLayerIndex((topLayerIndex) => 1 - topLayerIndex);
+        setVisibleLayerIndex(pendingLayerIndex);
       }
     },
-    [videoPlayingRefs, videoRefs, topLayerIndex, videoClip, pendingVideoClip]
+    [visibleLayerIndex, visibleVideoClip, pendingVideoClip, pendingLayerIndex]
   );
 
-  const onVideoPause = useCallback(
+  const onVideoPause = useCallback((index: number) => {
+    videoRefs.current[index].playing = false;
+  }, []);
+
+  const onVideoEnded = useCallback(
     (index: number) => {
-      videoPlayingRefs[index].current = false;
+      console.log('notifyVideoStopped');
+      if (index === visibleLayerIndex && !visibleVideoClip?.loop) {
+        if (pendingVideoClip === null) {
+          setVisibleVideoClip(null);
+        }
+        onStopped?.();
+      }
     },
-    [videoPlayingRefs]
+    [visibleLayerIndex, visibleVideoClip?.loop, pendingVideoClip, onStopped]
   );
 
-  const onVideoEnded = useCallback(() => {
-    console.log('notifyVideoStopped');
-    if (!videoClip?.loop) {
-      if (pendingVideoClip === null) {
-        setVideoClip(null);
-      }
-      onStopped?.();
-    }
-  }, [videoClip, onStopped, pendingVideoClip]);
+  const videoStyle = useMemo(
+    (): CSSProperties => ({
+      objectFit: visibleVideoClip?.fit ?? 'contain',
+      position: 'absolute', // TODO: Try to leave visible video as not absolute and render the pending one off screen
+      ...(fullscreen ? { width: '100%', height: '100%' } : {}),
+      ...style,
+    }),
+    [visibleVideoClip?.fit, fullscreen, style]
+  );
 
-  if (!videoClip) {
+  // TODO: Test on Pi if performance improvement to have the video elements always in place
+  if (!visibleVideoClip) {
     return null;
   }
 
-  const videoStyle: CSSProperties = {
-    objectFit: videoClip?.fit ?? 'contain',
-    position: 'absolute',
-    ...(fullscreen ? { width: '100%', height: '100%' } : {}),
-    ...style,
-  };
-
-  const topVideoSource = (getCachedAsset && getCachedAsset(videoClip.src)) ?? videoClip.src;
-  const bottomVideoSource = pendingVideoClip ? (getCachedAsset && getCachedAsset(pendingVideoClip.src)) ?? pendingVideoClip.src : undefined;
+  const visibleVideoSource = getCachedAsset?.(visibleVideoClip.src) ?? visibleVideoClip.src;
+  const pendingVideoSource = pendingVideoClip ? getCachedAsset?.(pendingVideoClip.src) ?? pendingVideoClip.src : undefined;
 
   const videos = (
     <>
-      {(topLayerIndex === 0 || pendingVideoClip !== null) && (
+      {(visibleLayerIndex === 0 || pendingVideoClip !== null) && (
         <video
+          key="video-0"
           className={className}
-          ref={video1Ref}
-          style={{ ...videoStyle, zIndex: topLayerIndex === 0 ? 100 : -100 }}
-          src={topLayerIndex === 0 ? topVideoSource : bottomVideoSource}
-          onEnded={() => onVideoEnded()}
+          ref={(element) => {
+            videoRefs.current[0].element = element;
+          }}
+          style={{ ...videoStyle, zIndex: visibleLayerIndex === 0 ? 100 : -100 }}
+          src={visibleLayerIndex === 0 ? visibleVideoSource : pendingVideoSource}
+          onEnded={() => onVideoEnded(0)}
           onPlaying={() => onVideoPlaying(0)}
           onPause={() => onVideoPause(0)}
         />
       )}
-      {(topLayerIndex === 1 || pendingVideoClip !== null) && (
+      {(visibleLayerIndex === 1 || pendingVideoClip !== null) && (
         <video
+          key="video-1"
           className={className}
-          ref={video2Ref}
-          style={{ ...videoStyle, zIndex: topLayerIndex === 1 ? 100 : -100 }}
-          src={topLayerIndex === 1 ? topVideoSource : bottomVideoSource}
-          onEnded={() => onVideoEnded()}
+          ref={(element) => {
+            videoRefs.current[1].element = element;
+          }}
+          style={{ ...videoStyle, zIndex: visibleLayerIndex === 1 ? 100 : -100 }}
+          src={visibleLayerIndex === 1 ? visibleVideoSource : pendingVideoSource}
+          onEnded={() => onVideoEnded(1)}
           onPlaying={() => onVideoPlaying(1)}
           onPause={() => onVideoPause(1)}
         />
