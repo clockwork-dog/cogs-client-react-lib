@@ -68,8 +68,9 @@
 								<li class="tsd-kind-function"><a href="modules.html#Hint" class="tsd-kind-icon">Hint</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#Images" class="tsd-kind-icon">Images</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#Timer" class="tsd-kind-icon">Timer</a></li>
-								<li class="tsd-kind-function"><a href="modules.html#Video" class="tsd-kind-icon">Video</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#VideoContainer" class="tsd-kind-icon">Video<wbr>Container</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#useAudioClips" class="tsd-kind-icon">use<wbr>Audio<wbr>Clips</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#useAudioPlayer" class="tsd-kind-icon">use<wbr>Audio<wbr>Player</a></li>
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#useCogsConfig" class="tsd-kind-icon">use<wbr>Cogs<wbr>Config</a></li>
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#useCogsConnection" class="tsd-kind-icon">use<wbr>Cogs<wbr>Connection</a></li>
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#useCogsEvent" class="tsd-kind-icon">use<wbr>Cogs<wbr>Event</a></li>
@@ -82,6 +83,7 @@
 								<li class="tsd-kind-function"><a href="modules.html#useIsConnected" class="tsd-kind-icon">use<wbr>IsConnected</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#usePreloadedUrl" class="tsd-kind-icon">use<wbr>Preloaded<wbr>Url</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#useShowPhase" class="tsd-kind-icon">use<wbr>Show<wbr>Phase</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#useVideoPlayer" class="tsd-kind-icon">use<wbr>Video<wbr>Player</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#useWhenShowReset" class="tsd-kind-icon">use<wbr>When<wbr>Show<wbr>Reset</a></li>
 							</ul>
 						</section>
@@ -94,20 +96,48 @@
 					<a name="CogsConnectionProvider" class="tsd-anchor"></a>
 					<h3>Cogs<wbr>Connection<wbr>Provider</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">Cogs<wbr>Connection<wbr>Provider<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>children<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span><span class="tsd-signature-symbol">; </span>hostname<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>port<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">JSX.Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">Cogs<wbr>Connection<wbr>Provider<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>audioPlayer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>children<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span><span class="tsd-signature-symbol">; </span>hostname<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>port<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>videoPlayer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">JSX.Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/providers/CogsConnectionProvider.tsx#L55">providers/CogsConnectionProvider.tsx:55</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/providers/CogsConnectionProvider.tsx#L66">providers/CogsConnectionProvider.tsx:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Create a persistent connection to COGS which can be accessed with <code>useCogsConnection()</code></p>
 								</div>
-								<pre><code class="language-jsx"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">MyComponent</span><span style="color: #000000">() {</span>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>audioPlayer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>children<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span><span class="tsd-signature-symbol">; </span>hostname<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>port<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>videoPlayer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> audio<wbr>Player<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Creates a <code>CogsAudioPlayer</code> than can be accessed with <code>useAudioPlayer()</code></p>
+												<p>Note: If unset, the audio player will remain active.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5>children<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> hostname<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> port<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> video<wbr>Player<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Creates a <code>CogsVideoPlayer</code> than can be accessed with <code>useVideoPlayer()</code></p>
+												<p>Note: If unset, the video player will remain active.</p>
+												<p><em>Example:</em></p>
+												<pre><code class="language-jsx"><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">MyComponent</span><span style="color: #000000">() {</span>
 <span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cogsConnection</span><span style="color: #000000"> = </span><span style="color: #795E26">useCogsConnection</span><span style="color: #000000">();</span>
 <span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">numberOfPlayers</span><span style="color: #000000"> = </span><span style="color: #795E26">useCogsConfig</span><span style="color: #000000">(</span><span style="color: #001080">cogsConnection</span><span style="color: #000000">)[</span><span style="color: #A31515">&#039;Number of players&#039;</span><span style="color: #000000">];</span>
 
@@ -115,13 +145,13 @@
 <span style="color: #000000">}</span>
 
 <span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">App</span><span style="color: #000000">() {</span>
-<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;</span><span style="color: #267F99">CogsConnectionProvider</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;</span><span style="color: #267F99">CogsConnectionProvider</span><span style="color: #000000"> </span><span style="color: #FF0000">audioPlayer</span><span style="color: #000000"> </span><span style="color: #FF0000">videoPlayer</span><span style="color: #800000">&gt;</span>
 <span style="color: #000000">    </span><span style="color: #800000">&lt;</span><span style="color: #267F99">MyComponent</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
 <span style="color: #000000">  </span><span style="color: #800000">&lt;</span><span style="color: #267F99">CogsConnectionProvider</span><span style="color: #800000">/&gt;</span><span style="color: #000000">;</span>
 <span style="color: #000000">}</span>
 </code></pre>
-								<p>or with Typescript:</p>
-								<pre><code class="language-tsx"><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">CogsProjectDataTypes</span><span style="color: #000000"> = {</span>
+												<p>or with Typescript:</p>
+												<pre><code class="language-tsx"><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">CogsProjectDataTypes</span><span style="color: #000000"> = {</span>
 <span style="color: #000000">  </span><span style="color: #001080">config</span><span style="color: #000000">: { </span><span style="color: #A31515">&#039;Number of players&#039;</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000"> }</span>
 <span style="color: #000000">};</span>
 
@@ -133,25 +163,12 @@
 <span style="color: #000000">}</span>
 
 <span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">App</span><span style="color: #000000">() {</span>
-<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;</span><span style="color: #267F99">CogsConnectionProvider</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;</span><span style="color: #267F99">CogsConnectionProvider</span><span style="color: #000000"> </span><span style="color: #FF0000">audioPlayer</span><span style="color: #000000"> </span><span style="color: #FF0000">videoPlayer</span><span style="color: #800000">&gt;</span>
 <span style="color: #000000">    </span><span style="color: #800000">&lt;</span><span style="color: #267F99">MyComponent</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
 <span style="color: #000000">  </span><span style="color: #800000">&lt;</span><span style="color: #267F99">CogsConnectionProvider</span><span style="color: #800000">/&gt;</span><span style="color: #000000">;</span>
 <span style="color: #000000">}</span>
 </code></pre>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>children<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span><span class="tsd-signature-symbol">; </span>hostname<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>port<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>children<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5><span class="tsd-flag ts-flagOptional">Optional</span> hostname<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5><span class="tsd-flag ts-flagOptional">Optional</span> port<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -170,7 +187,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/components/Hint.tsx#L5">components/Hint.tsx:5</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/components/Hint.tsx#L6">components/Hint.tsx:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -198,7 +215,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/components/Images.tsx#L5">components/Images.tsx:5</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/components/Images.tsx#L6">components/Images.tsx:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -235,7 +252,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/components/Timer.tsx#L23">components/Timer.tsx:23</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/components/Timer.tsx#L24">components/Timer.tsx:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -266,28 +283,25 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="Video" class="tsd-anchor"></a>
-					<h3>Video</h3>
+					<a name="VideoContainer" class="tsd-anchor"></a>
+					<h3>Video<wbr>Container</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">Video<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>connection<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CogsConnection</span><span class="tsd-signature-symbol">; </span>fullscreen<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>style<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>style<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol">; </span>getCachedAsset<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>onStopped<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">JSX.Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">Video<wbr>Container<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>fullscreen<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>style<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>style<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol">; </span>videoPlayer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">CogsVideoPlayer</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">JSX.Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/components/Video.tsx#L14">components/Video.tsx:14</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/components/VideoContainer.tsx#L5">components/VideoContainer.tsx:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>connection<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CogsConnection</span><span class="tsd-signature-symbol">; </span>fullscreen<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>style<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>style<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol">; </span>getCachedAsset<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>onStopped<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>fullscreen<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>style<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>style<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol">; </span>videoPlayer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">CogsVideoPlayer</span><span class="tsd-signature-symbol"> }</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> class<wbr>Name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>connection<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CogsConnection</span></h5>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> fullscreen<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>style<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.CSSProperties</span><span class="tsd-signature-symbol"> }</span></h5>
@@ -296,42 +310,7 @@
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> style<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">React.CSSProperties</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>get<wbr>Cached<wbr>Asset<span class="tsd-signature-symbol">: </span>function</h5>
-											<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon">get<wbr>Cached<wbr>Asset<span class="tsd-signature-symbol">(</span>assetUrl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<aside class="tsd-sources">
-														<ul>
-															<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/components/Video.tsx#L27">components/Video.tsx:27</a></li>
-														</ul>
-													</aside>
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>assetUrl: <span class="tsd-signature-type">string</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h4>
-												</li>
-											</ul>
-										</li>
-										<li class="tsd-parameter">
-											<h5>on<wbr>Stopped<span class="tsd-signature-symbol">: </span>function</h5>
-											<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon">on<wbr>Stopped<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<aside class="tsd-sources">
-														<ul>
-															<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/components/Video.tsx#L26">components/Video.tsx:26</a></li>
-														</ul>
-													</aside>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> video<wbr>Player<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">CogsVideoPlayer</span></h5>
 										</li>
 									</ul>
 								</li>
@@ -350,7 +329,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useAudioClips.ts#L4">hooks/useAudioClips.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useAudioClips.ts#L4">hooks/useAudioClips.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -368,6 +347,28 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="useAudioPlayer" class="tsd-anchor"></a>
+					<h3>use<wbr>Audio<wbr>Player</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">use<wbr>Audio<wbr>Player<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CogsAudioPlayer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/providers/CogsConnectionProvider.tsx#L131">providers/CogsConnectionProvider.tsx:131</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the audio player from <code>&lt;CogsConnectionProvider audioPlayer&gt;</code></p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">CogsAudioPlayer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
 					<a name="useCogsConfig" class="tsd-anchor"></a>
 					<h3>use<wbr>Cogs<wbr>Config</h3>
@@ -378,7 +379,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useCogsConfig.ts#L7">hooks/useCogsConfig.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useCogsConfig.ts#L7">hooks/useCogsConfig.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -407,7 +408,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/providers/CogsConnectionProvider.tsx#L93">providers/CogsConnectionProvider.tsx:93</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/providers/CogsConnectionProvider.tsx#L124">providers/CogsConnectionProvider.tsx:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -435,7 +436,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useCogsEvent.ts#L7">hooks/useCogsEvent.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useCogsEvent.ts#L7">hooks/useCogsEvent.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -491,7 +492,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useCogsInputPortValue.ts#L6">hooks/useCogsInputPortValue.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useCogsInputPortValue.ts#L6">hooks/useCogsInputPortValue.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -526,7 +527,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useCogsInputPortValues.ts#L7">hooks/useCogsInputPortValues.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useCogsInputPortValues.ts#L7">hooks/useCogsInputPortValues.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -555,7 +556,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useCogsMessage.ts#L4">hooks/useCogsMessage.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useCogsMessage.ts#L4">hooks/useCogsMessage.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -605,7 +606,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useHint.ts#L5">hooks/useHint.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useHint.ts#L5">hooks/useHint.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -628,7 +629,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useImages.ts#L7">hooks/useImages.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useImages.ts#L7">hooks/useImages.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -651,7 +652,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useIsAudioPlaying.ts#L4">hooks/useIsAudioPlaying.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useIsAudioPlaying.ts#L4">hooks/useIsAudioPlaying.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -674,7 +675,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useIsConnected.ts#L4">hooks/useIsConnected.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useIsConnected.ts#L4">hooks/useIsConnected.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -697,7 +698,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/usePreloadedUrl.ts#L4">hooks/usePreloadedUrl.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/usePreloadedUrl.ts#L4">hooks/usePreloadedUrl.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -720,7 +721,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useShowPhase.ts#L5">hooks/useShowPhase.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useShowPhase.ts#L5">hooks/useShowPhase.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -734,6 +735,28 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="useVideoPlayer" class="tsd-anchor"></a>
+					<h3>use<wbr>Video<wbr>Player</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">use<wbr>Video<wbr>Player<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CogsVideoPlayer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/providers/CogsConnectionProvider.tsx#L138">providers/CogsConnectionProvider.tsx:138</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the video player from <code>&lt;CogsConnectionProvider audioPlayer&gt;</code></p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">CogsVideoPlayer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="useWhenShowReset" class="tsd-anchor"></a>
 					<h3>use<wbr>When<wbr>Show<wbr>Reset</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -743,7 +766,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/3ed6fd5/src/hooks/useWhenShowReset.ts#L5">hooks/useWhenShowReset.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/clockwork-dog/cogs-client-react-lib/blob/1bd4f19/src/hooks/useWhenShowReset.ts#L5">hooks/useWhenShowReset.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -796,10 +819,13 @@
 						<a href="modules.html#Timer" class="tsd-kind-icon">Timer</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="modules.html#Video" class="tsd-kind-icon">Video</a>
+						<a href="modules.html#VideoContainer" class="tsd-kind-icon">Video<wbr>Container</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#useAudioClips" class="tsd-kind-icon">use<wbr>Audio<wbr>Clips</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#useAudioPlayer" class="tsd-kind-icon">use<wbr>Audio<wbr>Player</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="modules.html#useCogsConfig" class="tsd-kind-icon">use<wbr>Cogs<wbr>Config</a>
@@ -836,6 +862,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#useShowPhase" class="tsd-kind-icon">use<wbr>Show<wbr>Phase</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#useVideoPlayer" class="tsd-kind-icon">use<wbr>Video<wbr>Player</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#useWhenShowReset" class="tsd-kind-icon">use<wbr>When<wbr>Show<wbr>Reset</a>
