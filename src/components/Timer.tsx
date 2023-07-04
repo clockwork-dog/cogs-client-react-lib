@@ -42,8 +42,16 @@ export default function Timer({
   const [timerTotalMillis, setTimerTotalMillis] = useState(connection.timerState?.durationMillis ?? 0);
   const [timerTicking, setTimerTicking] = useState(connection.timerState?.ticking ?? false);
 
+  useEffect(() => {
+    if (connection.timerState?.startedAt) {
+      setTimerStartedAt(connection.timerState?.startedAt);
+    }
+  }, [connection.timerState?.startedAt]);
+
   const updateTimerElapsed = useCallback(() => {
+    //TODO remove this Date.now here
     const timerElapsed = timerTicking ? Date.now() - timerStartedAt : 0;
+    console.log('update timerElapsed', new Date(Date.now()));
     setTimerElapsed(timerElapsed);
   }, [timerTicking, timerStartedAt]);
 
@@ -76,7 +84,7 @@ export default function Timer({
     useCallback(
       (message: CogsClientMessage) => {
         if (message.type === 'adjustable_timer_update') {
-          updateTimerState({ startedAt: Date.now(), ticking: message.ticking, durationMillis: message.durationMillis });
+          updateTimerState({ startedAt: message.startedAt, ticking: message.ticking, durationMillis: message.durationMillis });
         }
       },
       [updateTimerState]
