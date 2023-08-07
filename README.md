@@ -49,9 +49,11 @@ const {
 then
 
 ```tsx
+import manifest from './cogs-plugin-manifest.js'; // For Typescript requires `"allowJs": true` in `tsconfig.json`
+
 function App() {
   return (
-    <CogsConnectionProvider audioPlayer videoPlayer>
+    <CogsConnectionProvider manifest={manifest} audioPlayer videoPlayer>
       <MyComponent />
     </CogsConnectionProvider>
   );
