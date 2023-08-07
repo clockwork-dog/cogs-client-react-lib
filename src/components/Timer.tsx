@@ -21,7 +21,7 @@ function formatTime(time: number, countingUp: boolean) {
   return { minutes, seconds };
 }
 
-export default function Timer<Manifest extends CogsPluginManifestJson | CogsPluginManifestJsonReadonly>({
+export default function Timer({
   className,
   style,
   connection: customConnection,
@@ -30,7 +30,8 @@ export default function Timer<Manifest extends CogsPluginManifestJson | CogsPlug
 }: {
   className?: string;
   style?: React.CSSProperties;
-  connection: CogsConnection<Manifest>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  connection: CogsConnection<any>;
   separator?: string;
   center?: boolean;
 }): JSX.Element {

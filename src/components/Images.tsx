@@ -3,7 +3,7 @@ import React from 'react';
 import useImages from '../hooks/useImages';
 import { useCogsConnection } from '../providers/CogsConnectionProvider';
 
-export default function Images<Manifest extends CogsPluginManifestJson | CogsPluginManifestJsonReadonly>({
+export default function Images({
   className,
   style,
   connection: customConnection,
@@ -11,7 +11,8 @@ export default function Images<Manifest extends CogsPluginManifestJson | CogsPlu
 }: {
   className?: string;
   style?: React.CSSProperties;
-  connection: CogsConnection<Manifest>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  connection: CogsConnection<any>;
   fullscreen?: boolean | { style: React.CSSProperties };
 }): JSX.Element | null {
   const providerConnection = useCogsConnection();

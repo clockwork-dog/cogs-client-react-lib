@@ -1,13 +1,14 @@
-import { CogsConnection, CogsPluginManifestJson, CogsPluginManifestJsonReadonly } from '@clockworkdog/cogs-client';
+import { CogsConnection } from '@clockworkdog/cogs-client';
+import {} from '@clockworkdog/cogs-client/dist/types/ManifestTypes';
 import React from 'react';
 import useHint from '../hooks/useHint';
 import { useCogsConnection } from '../providers/CogsConnectionProvider';
-import {} from '@clockworkdog/cogs-client/dist/types/ManifestTypes';
 
-export default function Hint<Manifest extends CogsPluginManifestJson | CogsPluginManifestJsonReadonly>({
+export default function Hint({
   connection: customConnection,
 }: {
-  connection: CogsConnection<Manifest>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  connection: CogsConnection<any>;
 }): JSX.Element | null {
   const providerConnection = useCogsConnection();
   const connection = customConnection ?? providerConnection;
