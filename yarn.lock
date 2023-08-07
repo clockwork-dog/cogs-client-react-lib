@@ -23,10 +23,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@clockworkdog/cogs-client@^1.5.6":
-  version "1.5.6"
-  resolved "https://registry.yarnpkg.com/@clockworkdog/cogs-client/-/cogs-client-1.5.6.tgz#8802fe314f56b43ae1c6fac76e6db09e6e27fab4"
-  integrity sha512-R7IraX5urVTtlsh45HmBnqKfxch3zk6C5dTUAmBGgMoVFoFTPgsqEhBlPGzc8NszovTa5toSC9+CesrfBJSzSw==
+"@clockworkdog/cogs-client@^2.0.0-beta.1":
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@clockworkdog/cogs-client/-/cogs-client-2.0.0-beta.1.tgz#4c96dc0ab1dd08684090851b6a9b3720de4a4708"
+  integrity sha512-umR+gqt/37ZX+RWyznMW4sIvrkrNcR0TJIjfM7uf5jAea1PxTtJuQnYIicdXC7X8pN6lCzweIi/Co0E3ZF5y6w==
   dependencies:
     "@clockworkdog/media-stream-library-browser" "^11.1.1-fixes.6"
     howler clockwork-dog/howler.js#fix-looping-clips
