@@ -1,5 +1,4 @@
 import { CogsConnection } from '@clockworkdog/cogs-client';
-import {} from '@clockworkdog/cogs-client/dist/types/ManifestTypes';
 import React from 'react';
 import useHint from '../hooks/useHint';
 import { useCogsConnection } from '../providers/CogsConnectionProvider';
