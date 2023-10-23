@@ -3,6 +3,7 @@ export { default as CogsConnectionProvider, useCogsConnection, useAudioPlayer, u
 export { default as useIsConnected } from './hooks/useIsConnected';
 export { default as useCogsConfig } from './hooks/useCogsConfig';
 export { default as useCogsEvent } from './hooks/useCogsEvent';
+export { default as useCogsEvents } from './hooks/useCogsEvents';
 export { default as useCogsStateValue } from './hooks/useCogsStateValue';
 export { default as useCogsStateValues } from './hooks/useCogsStateValues';
 export { default as useCogsMessage } from './hooks/useCogsMessage';
