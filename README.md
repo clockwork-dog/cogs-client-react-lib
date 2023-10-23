@@ -60,7 +60,7 @@ function App() {
 }
 
 function MyComponent() {
-  const cogsConnection = useCogsConnection();
+  const cogsConnection = useCogsConnection<typeof manifest>();
   const isConnected = useIsConnected(cogsConnection);
 
   const audioPlayer = useAudioPlayer();
